@@ -61,69 +61,125 @@ Check the visualization within the html
 
 ### Design and Test a Model Architecture
 
-#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
-
-Used lenet algorithm and tune certain parameters
-
+#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. 
+- used cv2 grayscale the images, and normalized the data using (pixel -  128)/128
+- chose above because so that the data has mean zero and equal variance
+- split the data into training set and validation set
+- shuffle the training data 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-please check the html
+Used Lenet model architecture (with picture attached below);The model has 5 Layers:
+
+-  Layer 1: input = 32x32x3. Output = 14 X 14 X 6  
+-  Layer 2: input is 14 X 14 X 6, Output = 400.
+-  Layer 3: input = 400. Output = 120
+- Layer 4: Input = 120. Output = 84
+- Layer 5: Input 84, output is 43
+
+![](lenet.png)
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-Used lenet algorithm and tune certain parameters
+trained using AdamOptimizer with the following parameters:
+
+- epochs: 15
+- batch_size: 128.
+- learning rate: 0.001
 
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-My final model results were:
-- please check the following in the html
-  * training set accuracy of ?
-  * validation set accuracy of ? 
-  * test set accuracy of ?
+model results were:
 
-If an iterative approach was chosen:
+* training set accuracy of 0.98
+* validation set accuracy of 0.94
+* test set accuracy of 0.94
 
-* What was the first architecture that was tried and why was it chosen?
-<- it's lenet and it produced >93% accuracy
+Trained using LeNet, googled a bunch and saw it's recommended on training traffic signs,  the result is good on first try:
 
-* What were some problems with the initial architecture?
-<- nothing
+- used the same parameter given in LeNet lab. 
+- fine tuned the following parameters to get the accuracy to > 0.93:
+	- epochs: 15
+	- batch_size: 128.
+	- learning rate: 0.001
 
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-<- n/a
 
-* Which parameters were tuned? How were they adjusted and why?
-<- just random tuning.
-
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
 
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-* Please check the new-image directory
 
-The first image might be difficult to classify because ...
+![](newimg.png)
+
+all the images may have low qualities which may make it hard to classify:
+
+- 1st image: may be misclassified as arrow pointing to straight or a right arrow
+- 2nd image: no comments 
+- 3rd image: the image is so low quality after grayscale
+- 4th: seems straight forward
+- 5th: imagehas low quality, and may be confused with other triangle signs
+
+
+
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-My model correctly guesses 5 out of 5
+Model correctly guesses 5 out of 5
+
+![](new-image-predictions.png)
+
+- 33 Turn right ahead
+- 15 No vechiles
+- 11 Right-of-way at the next intersection
+- 14 Stop
+- 18 General caution
+
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-check the html
+Probabilities below:
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-did not do this
+1st image:
+
+- Value: 33, Probability: 1.000000
+- Value: 11, Probability: 0.000000
+- Value: 37, Probability: 0.000000
+- Value: 39, Probability: 0.000000
+- Value: 21, Probability: 0.000000
+
+2nd image:
+
+- Value: 15, Probability: 1.000000
+- Value: 12, Probability: 0.000000
+- Value: 2, Probability: 0.000000
+- Value: 38, Probability: 0.000000
+- Value: 4, Probability: 0.000000
+
+3rd image:
+
+- Value: 11, Probability: 1.000000
+- Value: 30, Probability: 0.000000
+- Value: 34, Probability: 0.000000
+- Value: 23, Probability: 0.000000
+- Value: 26, Probability: 0.000000
+
+4th image:
+
+- Value: 14, Probability: 1.000000
+- Value: 38, Probability: 0.000000
+- Value: 13, Probability: 0.000000
+- Value: 0, Probability: 0.000000
+- Value: 34, Probability: 0.000000
+
+5th image:
+
+- Value: 18, Probability: 1.000000
+- Value: 27, Probability: 0.000000
+- Value: 26, Probability: 0.000000
+- Value: 28, Probability: 0.000000
+- Value: 0, Probability: 0.000000
 
 
